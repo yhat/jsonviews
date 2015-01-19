@@ -132,6 +132,7 @@ func TestReadObject(t *testing.T) {
 {"menu": {
   "id": "file",
   "value": "File",
+  "tf": null,
   "popup": {
     "menuitem": [
       {"value": "New", "onclick": "CreateNewDoc()"},
@@ -143,6 +144,7 @@ func TestReadObject(t *testing.T) {
 	view := NewView(bytes.NewReader([]byte(data)))
 	view.AddFilter(".menu.popup")
 	view.AddFilter(".menu.id")
+	view.AddFilter(".menu.tf")
 	r := io.TeeReader(view, os.Stderr)
 	d := json.NewDecoder(r)
 	s := struct {

@@ -271,7 +271,7 @@ func (v *View) readValue(dest runeWriter, src io.RuneScanner) (n int, err error)
 	case 't':
 		nextSlice = []rune("true")
 	case 'f':
-		nextSlice = []rune("fales")
+		nextSlice = []rune("false")
 	case 'n':
 		nextSlice = []rune("null")
 	}
@@ -285,7 +285,7 @@ func (v *View) readValue(dest runeWriter, src io.RuneScanner) (n int, err error)
 			// TODO: Clean up error message
 			return n, fmt.Errorf("expected '%s'", string(nextSlice))
 		}
-		if _, err := dest.WriteRune(r); err != nil {
+		if _, err := dest.WriteRune(rr); err != nil {
 			return n, err
 		}
 	}
