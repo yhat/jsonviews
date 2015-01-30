@@ -140,11 +140,11 @@ func (v *View) readObject(dest runeWriter, src io.RuneScanner) (n int, err error
 	if _, err = dest.WriteRune(r); err != nil {
 		return
 	}
-	defer func() {
+	defer func(dest runeWriter) {
 		if err == nil {
 			_, err = dest.WriteRune('}')
 		}
-	}()
+	}(dest)
 	curr := v.curr
 	num := 0 // number of items actually written
 	for {
