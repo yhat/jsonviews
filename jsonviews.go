@@ -25,12 +25,12 @@ func NewView(r io.Reader) *View {
 		filters: []string{},
 		once:    &sync.Once{},
 	}
+	v.pr, v.pw = io.Pipe()
 	return v
 }
 
 func (v *View) Read(p []byte) (n int, err error) {
 	v.once.Do(func() {
-		v.pr, v.pw = io.Pipe()
 		go func() {
 			w := bufio.NewWriter(v.pw)
 			_, err := v.readJSON(w, v.src)
